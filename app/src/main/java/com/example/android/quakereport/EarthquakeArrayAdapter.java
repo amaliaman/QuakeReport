@@ -125,7 +125,7 @@ public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
     }
 
     private String getDateString(long timeInMilliseconds) {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("MMM DD, yyyy", Locale.getDefault());
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
         return dateFormatter.format(new Date(timeInMilliseconds));
     }
 

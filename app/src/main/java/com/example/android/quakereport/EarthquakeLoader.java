@@ -6,15 +6,33 @@ import android.content.Context;
 import java.util.List;
 
 public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake>> {
-    private static final String QUAKES_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?" +
-            "format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
 
-    EarthquakeLoader(Context context) {
+    /** Query URL */
+    private String mUrl;
+
+    /**
+     * Constructs a new {@link EarthquakeLoader}.
+     *
+     * @param context of the activity
+     * @param url to load data from
+     */
+    EarthquakeLoader(Context context, String url) {
         super(context);
+        mUrl = url;
+    }
+
+    @Override
+    protected void onStartLoading() {
+        forceLoad();
     }
 
     @Override
     public List<Earthquake> loadInBackground() {
-        return QueryUtils.fetchEarthquakeData(QUAKES_URL);
+        if (mUrl == null) {
+            return null;
+        }
+
+        // Perform the network request, parse the response, and extract a list of earthquakes.
+        return QueryUtils.fetchEarthquakeData(mUrl);
     }
 }
